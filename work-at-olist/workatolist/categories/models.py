@@ -6,8 +6,8 @@ from django.db.models import F
 class Category(models.Model):
     title = models.CharField(max_length=50)
     channel = models.OneToOneField('channels.Channel', related_name='channel')
-    rgt = models.IntegerField()
-    lft = models.IntegerField()
+    rgt = models.IntegerField(default=1)
+    lft = models.IntegerField(default=2)
 
     @classmethod
     def add_node(cls, node, child=None, isroot=None):

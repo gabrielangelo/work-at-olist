@@ -1,7 +1,7 @@
 from django.db import models
 # Create your models here.
 #
-from workatolist.categories.models import Category
+from categories.models import Category
 
 
 class Channel(models.Model):

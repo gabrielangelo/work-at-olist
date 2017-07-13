@@ -1,5 +1,5 @@
-Django
-psycopg2
-prettyconf
-dj-database-url
-djangorestframework
+-r base.txt
+
+# Extra stuff required for production like Prod Database interfacing packages
+# psycopg2
+

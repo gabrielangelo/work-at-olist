@@ -1,12 +1,4 @@
-"""
-Django settings for workatolist project.
 
-For more information on this file, see
-https://docs.djangoproject.com/en/dev/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/dev/ref/settings/
-"""
 from django.core.urlresolvers import reverse_lazy
 from os.path import dirname, join, exists
 
@@ -58,7 +50,7 @@ if exists(env_file):
 # Raises ImproperlyConfigured exception if SECRET_KEY not in os.environ
 SECRET_KEY = env('SECRET_KEY')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -70,13 +62,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'authtools',
     'crispy_forms',
     'easy_thumbnails',
-
-    'profiles',
-    'accounts',
 
 )
 
@@ -100,7 +88,15 @@ WSGI_APPLICATION = 'workatolist.wsgi.application'
 DATABASES = {
     # Raises ImproperlyConfigured exception if DATABASE_URL not in
     # os.environ
-    'default': env.db(),
+    # 'default': env.db(),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'olist',
+        'USER': 'olistuser',
+        'PASSWORD': '12345',
+        'HOST': '0.0.0.0',
+        'PORT': '5432'
+    }
 }
 
 # Internationalization
@@ -138,3 +134,4 @@ LOGIN_REDIRECT_URL = reverse_lazy("profiles:show_self")
 LOGIN_URL = reverse_lazy("accounts:login")
 
 THUMBNAIL_EXTENSION = 'png'     # Or any extn for your thumbnails
+DJANGO_SETTINGS_MODULE = env('DJANGO_SETTINGS_MODULE')

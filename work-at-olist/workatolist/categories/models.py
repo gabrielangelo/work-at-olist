@@ -10,36 +10,21 @@ class Category(models.Model):
     lft = models.IntegerField(default=2)
 
     @classmethod
-    def add_node(cls, node, child=None, isroot=None):
+    def add_node(cls, root, parent):
             node_queryset = cls.objects.all()
-            root = None
+            check_parents = node_queryset.filter(lft__gte=root.lft, rgt__lte=root.lft, channel=root.chanel)
 
-            if isroot and child is None:
-
-                try:
-                    root = node_queryset.get(title='category', channel=node.channel)
-                except cls.DoesNotExist:
-                    pass
-
+            if check_parents.exists():
                 node_queryset.filter(
                     lft__gt=root.rgt, rgt__gt=root.rgt,
-                    channel=node.channel).update(rgt=F('rgt') + 2, lft=F('lft') + 2)
+                    channel=root.channel).update(rgt=F('rgt') + 2, lft=F('lft') + 2)
 
-                node_queryset.create(title=node.title, channel=node.channel,
+                node_queryset.create(title=parent.title, channel=parent.channel,
                                      rgt=root.rgt + 2, lft=root.lft + 1)
             else:
-
-                try:
-                    root = node_queryset.get(title=node.title, channel=node.channel)
-                except cls.DoesNotExist:
-                    pass
-
                 node_queryset.filter(rgt__gt=root.rgt, lft__gt=root.lft).update(rgt=F('rgt')+2, lft=F('lft')+2)
 
-                node_queryset.create(title=child.title, channel=child.channel,
+                node_queryset.create(title=parent.title, channel=parent.channel,
                                      rgt=root.rgt + 2, lft=root.lft + 1)
 
-    @classmethod
-    def del_node(cls, node):
-        pass
 

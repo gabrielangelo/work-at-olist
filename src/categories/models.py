@@ -17,19 +17,18 @@ class Category(models.Model):
     @classmethod
     def add_node(cls, root, parent):
             node_queryset = cls.objects.all()
-            check_parents = node_queryset.filter(lft__gte=root.lft, rgt__lte=root.lft, channel=root.channel)
+            check_parents = node_queryset.filter(
+                rgt__in=range(root.lft, root.rgt+1),
+                lft__in=range(root.lft, root.rgt+1), channel=root.channel).exclude(id=root.id)
 
             if check_parents.exists():
-                query_nodes = node_queryset.filter(Q(Q(lft__gt=root.rgt) | Q(rgt__gt=root.rgt)), channel=root.channel)
-                query_nodes.update(rgt=F('rgt') + 2, lft=F('lft') + 2) if query_nodes.exists() else None
-
-                node_queryset.create(title=parent.title, channel=parent.channel,
-                                     rgt=root.rgt + 2, lft=root.lft + 1)
+                node_queryset.filter(rgt__gte=root.rgt, channel=root.channel).update(rgt=F('rgt') + 2)
+                node_queryset.filter(lft__gt=root.rgt, channel=root.channel).update(rgt=F('lft') + 2)
+                last_node = check_parents.last()
+                node_queryset.create(title=parent.title, channel=parent.channel, lft=last_node.rgt + 1,
+                                     rgt=last_node.rgt + 2)
             else:
-                query_nodes = node_queryset.filter(Q(Q(rgt__gt=root.lft) | Q(lft__gt=root.lft)), channel=root.channel)
-                query_nodes.update(rgt=F('rgt')+2, lft=F('lft')+2) if query_nodes.exists() else None
-
-                node_queryset.create(title=parent.title, channel=parent.channel,
-                                     rgt=root.rgt + 2, lft=root.lft + 1)
-
+                node_queryset.filter(rgt__gt=root.lft, channel=root.channel).update(rgt=F('rgt') + 2)
+                node_queryset.filter(lft__gt=root.lft, channel=root.channel).update(lft=F('lft') + 2)
+                node_queryset.create(title=parent.title, channel=parent.channel, lft=root.lft + 1, rgt=root.lft + 2)
 

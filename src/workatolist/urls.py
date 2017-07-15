@@ -2,16 +2,11 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-import profiles.urls
-import accounts.urls
-from . import views
+from routers import router_v1
 
 urlpatterns = [
-    url(r'^$', views.HomePage.as_view(), name='home'),
-    url(r'^about/$', views.AboutPage.as_view(), name='about'),
-    url(r'^users/', include(profiles.urls, namespace='profiles')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^', include(accounts.urls, namespace='accounts')),
+    url(r'^api/v1/', include(router_v1.urls))
 ]
 
 # User-uploaded files like profile pics need to be served in development

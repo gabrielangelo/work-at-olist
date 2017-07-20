@@ -1,4 +1,4 @@
-from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
+from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.decorators import list_route, detail_route
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -10,7 +10,7 @@ from categories.api.serializers import CategorySerializer
 from .serializers import ChannelSerializer
 
 
-class ChannelViewSet(ModelViewSet):
+class ChannelViewSet(ReadOnlyModelViewSet):
     queryset = Channel.objects.all()
     serializer_class = ChannelSerializer
     permission_classes = [AllowAny, ]

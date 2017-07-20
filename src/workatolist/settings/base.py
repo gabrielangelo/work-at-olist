@@ -50,7 +50,7 @@ if exists(env_file):
 # Raises ImproperlyConfigured exception if SECRET_KEY not in os.environ
 SECRET_KEY = env('SECRET_KEY')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', ]
 
 # Application definition
 
@@ -94,7 +94,7 @@ DATABASES = {
         'NAME': 'olist',
         'USER': 'olistuser',
         'PASSWORD': '12345',
-        'HOST': '0.0.0.0',
+        'HOST': '127.0.0.1',
         'PORT': '5432'
     }
 }
@@ -117,7 +117,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # Crispy Form Theme - Bootstrap 3
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
@@ -130,8 +130,8 @@ MESSAGE_TAGS = {
 
 # Authentication Settings
 AUTH_USER_MODEL = 'authtools.User'
-LOGIN_REDIRECT_URL = reverse_lazy("profiles:show_self")
-LOGIN_URL = reverse_lazy("accounts:login")
+# LOGIN_REDIRECT_URL = reverse_lazy("profiles:show_self")
+# LOGIN_URL = reverse_lazy("accounts:login")
 
 THUMBNAIL_EXTENSION = 'png'     # Or any extn for your thumbnails
 DJANGO_SETTINGS_MODULE = env('DJANGO_SETTINGS_MODULE')

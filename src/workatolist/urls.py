@@ -5,8 +5,10 @@ from django.conf.urls.static import static
 from routers import router_v1
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^api/v1/', include(router_v1.urls))
+    url(r'^', include(admin.site.urls)),
+    #url(r'^admin/', include(admin.site.urls)),
+    url(r'^api/v1/', include(router_v1.urls)),
+    #url(r'^docs/', include('rest_framework_swagger.urls'))
 ]
 
 # User-uploaded files like profile pics need to be served in development

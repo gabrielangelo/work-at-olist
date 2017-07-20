@@ -4,6 +4,7 @@ from collections import defaultdict
 
 # Create your models here.
 
+
 def tree():
     return defaultdict(tree)
 
@@ -46,6 +47,9 @@ class Category(models.Model):
 
     @classmethod
     def make_json_tree(cls, parent):
+        if parent is None:
+            return None
+
         interval = range(parent.lft, parent.rgt+1)
         nodes = cls.objects.filter(channel=parent.channel,
                                    rgt__in=interval, lft__in=interval
@@ -74,7 +78,6 @@ class Category(models.Model):
                         path.append(nodes[i + 1])
                         dump_tree(t, path)
             elif nodes[i-1].rgt == nodes[i].lft - 1 and nodes[i+1].lft == nodes[i].rgt + 2:
-                #path.pop()
                 path.append(nodes[i])
                 dump_tree(t, path)
                 path.pop()

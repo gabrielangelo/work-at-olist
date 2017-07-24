@@ -9,4 +9,4 @@ class Channel(models.Model):
 
     def save(self, *args, **kwargs):
         super(Channel, self).save(*args, **kwargs)
-        Category.objects.create(title='category', channel=self)
+        Category.objects.create(title='Category', channel=self)

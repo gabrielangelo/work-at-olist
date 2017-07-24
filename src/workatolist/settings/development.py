@@ -16,7 +16,8 @@ DEBUG = True
 INSTALLED_APPS += (
     'debug_toolbar',
     'channels',
-    'categories'
+    'categories',
+    'core'
 )
 
 # Additional middleware introduced by debug toolbar

@@ -23,6 +23,6 @@ class ChannelViewSet(ReadOnlyModelViewSet):
             channel=self.get_object(), title=title) if title else Category.objects.filter(lft=1,
                                                                                           channel=self.get_object())
         if category.exists():
-            serializer = CategorySerializer(category.get())
+            serializer = CategorySerializer(category, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response({'detail': 'Not Found'}, status=status.HTTP_404_NOT_FOUND)

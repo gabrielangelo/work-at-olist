@@ -65,6 +65,8 @@ INSTALLED_APPS = (
     'authtools',
     'crispy_forms',
     'easy_thumbnails',
+    'rest_framework_swagger',
+    'django_filters'
 
 )
 
@@ -127,7 +129,9 @@ from django.contrib import messages
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
-
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+}
 # Authentication Settings
 AUTH_USER_MODEL = 'authtools.User'
 # LOGIN_REDIRECT_URL = reverse_lazy("profiles:show_self")

@@ -2,12 +2,16 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework_swagger.views import get_swagger_view
 from routers import router_v1
 
+schema_view = get_swagger_view(title='Work at on Olist')
+
 urlpatterns = [
-    url(r'^', include(admin.site.urls)),
-    #url(r'^admin/', include(admin.site.urls)),
+    url(r'^docs', schema_view),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^api/v1/', include(router_v1.urls)),
+    url(r'^', include(admin.site.urls))
     #url(r'^docs/', include('rest_framework_swagger.urls'))
 ]
 

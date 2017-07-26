@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^docs', schema_view),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/v1/', include(router_v1.urls)),
-    url(r'^', include(admin.site.urls))
+    url(r'^$', schema_view)
     #url(r'^docs/', include('rest_framework_swagger.urls'))
 ]
 

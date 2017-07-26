@@ -31,6 +31,7 @@ class Command(BaseCommand):
             query_channel = Channel.objects.filter(description=channel)
 
             if query_channel.exists():
+                #if a channel exists, delete all you categories, else a new channel is created with your default category
                 Category.objects.prefetch_related('channel').filter(
                     channel=query_channel.get()).exclude(title='Category').delete()
                 Category.objects.prefetch_related('channel').filter(channel=query_channel.get()).update(lft=1, rgt=2)
@@ -43,13 +44,15 @@ class Command(BaseCommand):
                     for row in rows:
                             if row and '/' in row[0]:
                                     parts = [p for p in row[0].split('/')]
+                                    #get the parent node in parts list
                                     parent = Category.objects.get(title=parts[:-1][-1].strip(),
                                                                   channel=query_channel.get(),
                                                                   parent__title='Category' if len(parts) == 2 else
                                                                   parts[:-1][-2].strip()
                                                                   )
-
+                                    #just create a object but doesn't save it yet
                                     node = Category(title=parts[-1:][0].strip(), channel=query_channel.get())
+                                    #the method receives the parent node and the child node
                                     Category.add_node(parent, node)
                             elif row and '/' not in row[0] and row[0] != 'Category':
                                     root = Category.objects.get(title='Category', channel=query_channel.get())

@@ -1,3 +1,4 @@
+from django.http import Http404
 from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.permissions import AllowAny
 from categories.models import Category
@@ -17,14 +18,25 @@ class CategoriesViewset(ReadOnlyModelViewSet):
         model = Category
 
     def get_queryset(self):
-        channel = self.request.query_params.get('channel', None)
+        channel = self.request.query_params.get('channel__description', None)
         title = self.request.query_params.get('title', None)
         if title and channel:
-            return self.Meta.model.objects.prefetch_related('channel').filter(channel__description=channel, title=title)
+            queryset = self.Meta.model.objects.prefetch_related('channel').filter(channel__description=channel,
+                                                                                  title=title)
+            if not queryset.exists():
+                raise Http404
+            return queryset
+
         elif channel:
-            return self.Meta.model.objects.prefetch_related('channel').filter(lft=1, channel__description=channel)
+            queryset = self.Meta.model.objects.prefetch_related('channel').filter(lft=1, channel__description=channel)
+            if not queryset.exists():
+                raise Http404
+            return queryset
         elif title:
-            return self.Meta.model.objects.prefetch_related('channel').filter(title=title)
+            queryset = self.Meta.model.objects.prefetch_related('channel').filter(title=title)
+            if not queryset.exists():
+                raise Http404
+            return queryset
         else:
             return self.Meta.model.objects.prefetch_related('channel').filter(lft=1)
 

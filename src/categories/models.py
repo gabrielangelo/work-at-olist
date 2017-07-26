@@ -42,10 +42,8 @@ class Category(models.Model):
         nodes = cls.objects.filter(channel=parent.channel,
                                    rgt__in=interval, lft__in=interval
                                    ).order_by('lft')
-        if parent.parent_id is None:
-            path = []
-        else: path = [nodes.first()]
 
+        path = [] if parent.parent_id is None else [nodes.first()]
         t = tree()
         for node in nodes:
             if node.parent_id is None or node.parent_id == path[-1].id:

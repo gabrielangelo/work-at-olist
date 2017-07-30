@@ -15,24 +15,3 @@ class ChannelViewSet(ReadOnlyModelViewSet):
     serializer_class = ChannelSerializer
     permission_classes = [AllowAny, ]
     lookup_field = 'description'
-
-    # @detail_route(methods=['GET'], url_path='categories?')
-    # def categories(self, request, **kwargs):
-    #     """
-    #     Return the nested categories of a channel
-    #     parameters
-    #         - name: title
-    #           paramType: query
-    #     """
-    #     title = request.query_params.get('title', None)
-    #     category = Category.objects.prefetch_related('channel').filter(
-    #         channel=self.get_object(), title=title) if title else Category.objects.filter(lft=1,
-    #                                                                                       channel=self.get_object())
-    #     if category.exists():
-    #         serializer = CategorySerializer(category, many=True)
-    #         return Response(serializer.data, status=status.HTTP_200_OK)
-    #     return Response({'detail': 'Not Found'}, status=status.HTTP_404_NOT_FOUND)
-    #
-    # def list(self, *args, **kwargs):
-    #     '''Return all channels'''
-    #     super(self.__class__, self).list(*args, **kwargs)

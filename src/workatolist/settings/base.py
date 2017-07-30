@@ -12,6 +12,9 @@ import os
 from os.path import join, dirname, exists
 import environ
 
+# from django.conf import settings
+# settings.configure()
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = dirname(dirname(dirname(os.path.abspath(__file__))))
 

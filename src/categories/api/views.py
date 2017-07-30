@@ -1,14 +1,12 @@
-from django.http import Http404
-from django.shortcuts import get_object_or_404
-from rest_framework.generics import RetrieveAPIView
 from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.permissions import AllowAny
 from categories.models import Category
-from categories.api.serializers import CategorySerializer
+from .serializers import CategorySerializer
+from .mixins import MultiplesQueriesMixin
 from rest_framework.filters import DjangoFilterBackend
 
 
-class CategoriesViewset(ReadOnlyModelViewSet):
+class CategoriesViewset(MultiplesQueriesMixin, ReadOnlyModelViewSet):
     """filter categories by description's channel"""
     lookup_field = 'channel__description'
     permission_classes = [AllowAny, ]
@@ -19,26 +17,6 @@ class CategoriesViewset(ReadOnlyModelViewSet):
 
     class Meta:
         model = Category
-
-    def get_queryset(self):
-        filter = {}
-        query_params_size = len(self.request.query_params)
-        if query_params_size > 0:
-            for field in self.filter_fields:
-                param = self.request.query_params.get(field, None)
-                if param:
-                    filter[field] = param
-                else:
-                    pass
-            if 'channel__description' in filter.keys() and query_params_size == 1:
-                filter['lft'] = 1
-                self.Meta.model.objects.filter(**filter)
-
-            queryset = self.Meta.model.objects.filter(**filter)
-            if not queryset.exists():
-                raise Http404
-            return queryset
-        return self.queryset
 
     def list(self, request, *args, **kwargs):
         """

@@ -6,7 +6,7 @@ class CategorySerializer(ModelSerializer):
 
     class Meta:
         model = Category
-        exclude = ('id', 'lft', 'rgt')
+        exclude = ('id_category', 'lft', 'rgt')
 
     def to_representation(self, instance):
         return self.Meta.model.make_json_tree(instance)

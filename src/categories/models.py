@@ -55,6 +55,7 @@ class Category(models.Model):
     @classmethod
     def persist_nodes(cls, nodes):
         cls.objects.bulk_create(nodes)
+        print('OK')
 
     @classmethod
     def make_json_tree(cls, parent):

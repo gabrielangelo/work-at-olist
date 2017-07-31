@@ -27,7 +27,7 @@ class Command(BaseCommand):
 
     def print_green(self, name):
         """grenn letter"""
-        print('\033[92m'.format(name))
+        print("\033[92m {}\033[00m".format(name))
 
     def collect_categories(self, channel, file):
         """
@@ -62,7 +62,7 @@ class Command(BaseCommand):
                             node = Category(title=row[0].strip(), parent=parents[0], channel=query_channel)
                             nodes.append(node)
                             nodes = Category.add_node(nodes=nodes)
-                            self.print_red("Category: %s added" % nodes[-1].title)
+                            self.print_green("Category: %s added" % nodes[-1].title)
                         elif row and '/' in row[0]:
                             parts = [p for p in row[0].split('/')]
                             size_parts = len(parts)
@@ -84,7 +84,7 @@ class Command(BaseCommand):
                             nodes = Category.add_node(nodes=nodes)
                             parents.append(nodes[-1])
 
-                            self.print_red("Category: %s added" % nodes[-1].title)
+                            self.print_green("Category: %s added" % nodes[-1].title)
 
                     Category.persist_nodes(nodes)
         else:

@@ -1,0 +1,9 @@
+Django==1.11.3
+django-debug-toolbar==1.8
+django-environ==0.4.3
+django-filter==1.0.4
+django-filters==0.2.1
+django-rest-swagger==2.1.2
+djangorestframework==3.6.3
+psycopg2
+

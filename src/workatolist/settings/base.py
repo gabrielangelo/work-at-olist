@@ -40,15 +40,22 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
-    'rest_framework_swagger',
     'django_filters'
 ]
-THIRD_APPS = (
+
+THIRD_APPS = [
+    'rest_framework',
+    'rest_framework_swagger',
+]
+
+INTERNAL_APPS = [
     'channels',
     'categories',
     'core'
-)
-INSTALLED_APPS += THIRD_APPS
+]
+
+INSTALLED_APPS += INTERNAL_APPS + THIRD_APPS
+# INSTALLED_APPS += THIRD_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

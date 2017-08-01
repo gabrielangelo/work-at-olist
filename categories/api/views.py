@@ -1,15 +1,12 @@
 from rest_framework.viewsets import ReadOnlyModelViewSet
-from rest_framework.permissions import AllowAny
 from categories.models import Category
 from .serializers import CategorySerializer
-from .mixins import MultiplesQueriesMixin
+from .mixins import DefaultMixin, MultiplesQueriesMixin
 from rest_framework.filters import DjangoFilterBackend
 
 
-class CategoriesViewset(MultiplesQueriesMixin, ReadOnlyModelViewSet):
+class CategoriesViewset(DefaultMixin, MultiplesQueriesMixin, ReadOnlyModelViewSet):
     """filter categories by description's channel"""
-    lookup_field = 'channel__description'
-    permission_classes = [AllowAny, ]
     serializer_class = CategorySerializer
     filter_backends = (DjangoFilterBackend, )
     filter_fields = ('title', 'channel__description')

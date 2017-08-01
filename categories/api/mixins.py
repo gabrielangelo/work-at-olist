@@ -1,4 +1,5 @@
 from django.http import Http404
+from rest_framework.permissions import AllowAny
 
 
 class MultiplesQueriesMixin(object):
@@ -22,3 +23,9 @@ class MultiplesQueriesMixin(object):
                 raise Http404
             return queryset
         return self.queryset
+
+
+class DefaultMixin(object):
+    lookup_field = 'channel__description'
+    permission_classes = [AllowAny, ]
+    paginate_by = 25

@@ -9,4 +9,6 @@ class CategorySerializer(ModelSerializer):
         exclude = ('id_category', 'lft', 'rgt')
 
     def to_representation(self, instance):
-        return self.Meta.model.make_json_tree(instance)
+        objs = {'channel': instance.channel.description}
+        objs['categories'] = self.Meta.model.make_json_tree(instance)
+        return objs

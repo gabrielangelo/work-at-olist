@@ -76,7 +76,8 @@ $ git push heroku master
 ```
 $ heroku run python manage.py migrate
 ```
-
+6.Link
+https://work-at-olist-he.herokuapp.com
 
 ## Authors
 

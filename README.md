@@ -54,7 +54,7 @@ The site will be available on <http://127.0.0.1:8000>.
 
 ## REST API
 
-REST API docs can be found in <http://127.0.0.1:8000/api/v1/docs/>.
+REST API docs can be found in <http://127.0.0.1:8000/api/v1/docs/> or https://work-at-olist-he.herokuapp.com.
 
 
 ## Deploy
@@ -64,7 +64,6 @@ To deploy to heroku:
 1. Create a project in Heroku
 2. Add a Postgres database
 3. Set environment variables
-
 4. Push to the Heroku repository:
 
 ```
@@ -76,8 +75,6 @@ $ git push heroku master
 ```
 $ heroku run python manage.py migrate
 ```
-6.Link
-https://work-at-olist-he.herokuapp.com
 
 ## Authors
 

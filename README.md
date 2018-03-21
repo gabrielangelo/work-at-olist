@@ -1,7 +1,7 @@
 # Work at Olist
 
 Implementation of [work-at-olist](https://github.com/olist/work-at-olist).
-The repositry focus in the [problem](https://github.com/olist/work-at-olist/blob/3aca8ce2ef2cc66645fe864bc2128d55b10f6ee6/README.md) that has been changed to another [problem](https://github.com/olist/work-at-olist/blob/master/README.md).
+This forked repositry focus in the [problem](https://github.com/olist/work-at-olist/blob/3aca8ce2ef2cc66645fe864bc2128d55b10f6ee6/README.md) that has been changed to another [new version](https://github.com/olist/work-at-olist/blob/master/README.md).
 
 ## Main tools used in this project
 

@@ -28,8 +28,8 @@ if exists(env_file):
     environ.Env.read_env(str(env_file))
 
 # SECURITY WARNING: don't run with d ebug turned on in production!
-DEBUG = env('DEBUG')
-SECRET_KEY = env('SECRET_KEY')
+DEBUG = True#env('DEBUG')
+SECRET_KEY = "LRYw5C8{8?{pHvk9g_;|/!uhpSeMdW3QBlQAt!$CXu&IwcgC4~*!/S:f*5`=dq=8A<PiR*Ao6g@>T3f<<j}q'(74I=4iv~KNTZo5"
 # Application definition
 
 INSTALLED_APPS = [
@@ -58,7 +58,7 @@ INSTALLED_APPS += INTERNAL_APPS + THIRD_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    #'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -93,7 +93,10 @@ WSGI_APPLICATION = 'workatolist.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-     'default': env.db()
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
 
 # Internationalization
